@@ -1,0 +1,42 @@
+{% extends 'shop/layouts/main.html' %}
+{% block title %}
+ShopKart | Online Shopping
+{% endblock title %}
+
+{% block content %}
+<section class="bg-light py-4 my-5" style="min-height:600px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4 class="mb-3">{{category_name}} Products</h4>
+        <hr style="border-color:#b8bfc2;">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active">{{category_name}} Collections</li>
+          </ol>
+        </nav>
+        {% include 'shop/inc/message.html' %}
+      </div>
+      {% for item in products %}
+      <div class="col-md-4 col-lg-3">
+        <div class="card my-3" style="background-color: rgb(241, 236, 236); border-radius: 20px; height:320px;">
+          <img src="{{item.product_image.url}}" style="margin-top: 5px; height: 200px; object-fit:contain;" class="card-image-top" alt="Categories">
+          <a href="{% url 'product_details' category_name item.name %}">
+            <hr style="border-color:#87898a;">
+            <div class="card-body">
+            <h5 class="card-title text-primary">{{ item.name }}</h5>
+            <p class="card-text">
+              <span class="float-start old_price"><s>Rs.{{ item.selling_price | stringformat:'d'}}</s></span>
+              <span class="float-end new_price">Rs.{{ item.original_price | stringformat:'d' }}</span>
+            </p>
+          </div>
+        </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+ 
+{% endblock content %}
